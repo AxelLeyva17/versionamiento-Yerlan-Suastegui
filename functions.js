@@ -40,11 +40,21 @@ function loadProductTable() {
             tableBody.appendChild(row);
         });
 
+    //Update the inventory summary
+        updateSummary(products);
+
     //Add event listeners for delete buttons
         document.querySelectorAll('.delete-btn').forEach(button => {
             button.addEventListener('click', deleteProduct);
         });
     };
+}
+
+//Show the number of products and the total value of the inventory
+function updateSummary(products) {
+    const total = products.reduce((sum, product) => sum + product.price, 0);
+    document.getElementById('totalProducts').textContent = products.length;
+    document.getElementById('totalValue').textContent = '$' + total.toFixed(2);
 }
 
 //Add/Create a new product
