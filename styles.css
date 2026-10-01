@@ -1,9 +1,27 @@
+/* Paleta de colores (rebranding) */
+:root {
+    --bg-start: #0F766E;
+    --bg-end: #0F172A;
+    --primary: #14B8A6;
+    --primary-dark: #0D9488;
+    --accent: #F59E0B;
+    --accent-dark: #D97706;
+    --surface: #FFFFFF;
+    --surface-alt: #F0FDFA;
+    --text: #0F172A;
+    --text-muted: #475569;
+    --text-on-dark: #F8FAFC;
+    --border: #CBD5E1;
+    --danger: #EF4444;
+    --danger-dark: #B91C1C;
+}
+
 body {
-    background: linear-gradient(#8412B0, #000);
+    background: linear-gradient(var(--bg-start), var(--bg-end));
     font-family: 'Consolas', sans-serif;
     margin: 0;
     padding: 0;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -11,12 +29,12 @@ body {
 }
 
 h1 {
-    color: #FFF;
+    color: var(--text-on-dark);
     text-align: center;
     margin-top: 20px;
     font-size: 2.5em;
     display: inline;
-    text-shadow: 0 0 10px #FC199A, 0 0 20px #FC199A, 0 0 30px #FC199A, 0 0 40px #FF007F, 0 0 50px #FF007F;
+    text-shadow: 0 2px 12px rgba(20, 184, 166, 0.6);
 }
 
 .container {
@@ -31,16 +49,16 @@ h1 {
 
 .formContainer {
     text-align: center;
-    background-color: #FF007F;
+    background-color: var(--surface);
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
     width: 20%;
     margin-right: 20px;
 }
 
 label {
-    color: #00FFFF;
+    color: var(--primary-dark);
     font-size: 14px;
     margin-right: 10px;
 }
@@ -50,14 +68,14 @@ input {
     margin-right: 10px;
     margin-bottom: 15px;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border);
     width: 100%;
     box-sizing: border-box;
 }
 
 button {
-    background-color: #FFCC00;
-    color: #8412B0;
+    background-color: var(--accent);
+    color: var(--text);
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
@@ -67,8 +85,8 @@ button {
 }
 
 button:hover {
-    background-color: #FC199A;
-    color: #fff;
+    background-color: var(--accent-dark);
+    color: var(--text-on-dark);
 }
 
 table {
@@ -78,23 +96,23 @@ table {
 }
 
 th, td {
-    border: 1px solid #ddd;
+    border: 1px solid var(--border);
     padding: 12px 15px;
     text-align: left;
 }
 
 th {
-    background-color: #FC199A;
-    color: white;
+    background-color: var(--primary-dark);
+    color: var(--text-on-dark);
 }
 
 td {
-    background-color: #00FFFF;
-    color: #8412B0;
+    background-color: var(--surface-alt);
+    color: var(--text);
 }
 
 .delete-btn {
-    background-color: #f0745e;
+    background-color: var(--danger);
     color: white;
     border: none;
     padding: 5px 10px;
@@ -103,11 +121,11 @@ td {
 }
 
 .delete-btn:hover {
-    background-color: #ff0800;
+    background-color: var(--danger-dark);
 }
 
 
 #productsTable tbody tr {
-    background-color: #FFF;
-    color: #000;
+    background-color: var(--surface);
+    color: var(--text);
 }
