@@ -198,3 +198,43 @@ td {
     font-size: 14px;
     text-align: center;
 }
+
+
+/* Modo oscuro */
+body.dark {
+    --bg-start: #020617;
+    --bg-end: #0F172A;
+    --primary: #2DD4BF;
+    --primary-dark: #5EEAD4;
+    --surface: #1E293B;
+    --surface-alt: #0F172A;
+    --text: #E2E8F0;
+    --text-muted: #94A3B8;
+    --border: #334155;
+}
+
+body.dark th {
+    background-color: #115E59;
+}
+
+body.dark input {
+    background-color: var(--surface-alt);
+    color: var(--text);
+}
+
+.themeToggle {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    width: auto;
+    padding: 8px 14px;
+    border-radius: 20px;
+    background-color: var(--surface);
+    color: var(--text);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.themeToggle:hover {
+    background-color: var(--primary);
+    color: var(--bg-end);
+}

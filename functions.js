@@ -108,3 +108,25 @@ function deleteProduct(event) {
 
 //Event listener for the button click
 document.getElementById('addProduct').addEventListener('click', addProduct);
+
+//Dark mode: toggle the theme and remember the user's choice
+const themeToggle = document.getElementById('themeToggle');
+
+function applyTheme(theme) {
+    document.body.classList.toggle('dark', theme === 'dark');
+    themeToggle.textContent = theme === 'dark' ? '☀️ Light mode' : '🌙 Dark mode';
+}
+
+let savedTheme = 'light';
+try {
+    savedTheme = localStorage.getItem('theme') || 'light';
+} catch (e) { /* localStorage not available */ }
+applyTheme(savedTheme);
+
+themeToggle.addEventListener('click', function() {
+    const newTheme = document.body.classList.contains('dark') ? 'light' : 'dark';
+    applyTheme(newTheme);
+    try {
+        localStorage.setItem('theme', newTheme);
+    } catch (e) { /* localStorage not available */ }
+});
