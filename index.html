@@ -3,12 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Example Data Table with IndexedDB</title>
+    <title>Yerlan's Shop | IndexedDB</title>
 
+    <!-- Tipografías: Poppins (títulos) e Inter (texto) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Leyva's shop</h1>
+    <button id="themeToggle" class="themeToggle" aria-label="Toggle dark mode">🌙 Dark mode</button>
+
+    <header class="appHeader">
+        <h1>Yerlan's Shop</h1>
+        <p class="subtitle">Product inventory stored locally with IndexedDB</p>
+    </header>
 
     <div class="container">
 
@@ -20,6 +29,18 @@
             <input type="number" id="price" placeholder="Enter product price" min="1">
             
             <button id="addProduct">Add Product</button>
+
+            <!-- Resumen del inventario -->
+            <div class="summary">
+                <div class="summaryItem">
+                    <span class="summaryLabel">Products</span>
+                    <span class="summaryValue" id="totalProducts">0</span>
+                </div>
+                <div class="summaryItem">
+                    <span class="summaryLabel">Total value</span>
+                    <span class="summaryValue" id="totalValue">$0.00</span>
+                </div>
+            </div>
         </div>
 
       
@@ -38,6 +59,9 @@
         </table>
     </div>
 
+    <footer class="appFooter">
+        Developed by <strong>Yerlan Suastegui</strong> &middot; Version control practice
+    </footer>
 
     <script src="functions.js"></script>
 </body>

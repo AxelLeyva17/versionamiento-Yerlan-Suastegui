@@ -40,11 +40,21 @@ function loadProductTable() {
             tableBody.appendChild(row);
         });
 
+    //Update the inventory summary
+        updateSummary(products);
+
     //Add event listeners for delete buttons
         document.querySelectorAll('.delete-btn').forEach(button => {
             button.addEventListener('click', deleteProduct);
         });
     };
+}
+
+//Show the number of products and the total value of the inventory
+function updateSummary(products) {
+    const total = products.reduce((sum, product) => sum + product.price, 0);
+    document.getElementById('totalProducts').textContent = products.length;
+    document.getElementById('totalValue').textContent = '$' + total.toFixed(2);
 }
 
 //Add/Create a new product
@@ -98,3 +108,25 @@ function deleteProduct(event) {
 
 //Event listener for the button click
 document.getElementById('addProduct').addEventListener('click', addProduct);
+
+//Dark mode: toggle the theme and remember the user's choice
+const themeToggle = document.getElementById('themeToggle');
+
+function applyTheme(theme) {
+    document.body.classList.toggle('dark', theme === 'dark');
+    themeToggle.textContent = theme === 'dark' ? '☀️ Light mode' : '🌙 Dark mode';
+}
+
+let savedTheme = 'light';
+try {
+    savedTheme = localStorage.getItem('theme') || 'light';
+} catch (e) { /* localStorage not available */ }
+applyTheme(savedTheme);
+
+themeToggle.addEventListener('click', function() {
+    const newTheme = document.body.classList.contains('dark') ? 'light' : 'dark';
+    applyTheme(newTheme);
+    try {
+        localStorage.setItem('theme', newTheme);
+    } catch (e) { /* localStorage not available */ }
+});
