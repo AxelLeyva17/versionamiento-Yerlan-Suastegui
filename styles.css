@@ -1,0 +1,113 @@
+body {
+    background: linear-gradient(#8412B0, #000);
+    font-family: 'Consolas', sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+h1 {
+    color: #FFF;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 2.5em;
+    display: inline;
+    text-shadow: 0 0 10px #FC199A, 0 0 20px #FC199A, 0 0 30px #FC199A, 0 0 40px #FF007F, 0 0 50px #FF007F;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 50px;
+    width: 90%;
+    max-width: 1200px;
+}
+
+.formContainer {
+    text-align: center;
+    background-color: #FF007F;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 20%;
+    margin-right: 20px;
+}
+
+label {
+    color: #00FFFF;
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+input {
+    padding: 8px;
+    margin-right: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #FFCC00;
+    color: #8412B0;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #FC199A;
+    color: #fff;
+}
+
+table {
+    width: 60%;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px 15px;
+    text-align: left;
+}
+
+th {
+    background-color: #FC199A;
+    color: white;
+}
+
+td {
+    background-color: #00FFFF;
+    color: #8412B0;
+}
+
+.delete-btn {
+    background-color: #f0745e;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    background-color: #ff0800;
+}
+
+
+#productsTable tbody tr {
+    background-color: #FFF;
+    color: #000;
+}
