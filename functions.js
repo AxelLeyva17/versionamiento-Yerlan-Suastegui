@@ -1,6 +1,16 @@
-// Open (or create) the database with the version 1
+//Starter catalog, only added when the shop has no products yet
+const starterProducts = [
+    { id: 1, name: 'Kirby Plush', price: 24.99 },
+    { id: 2, name: 'Warp Star Lamp', price: 39.5 },
+    { id: 3, name: 'Maxim Tomato Snack', price: 4.99 },
+    { id: 4, name: 'Star Rod Replica', price: 54 },
+    { id: 5, name: 'Kirby Keychain', price: 8.75 },
+    { id: 6, name: 'Kirby Sleepy Cap', price: 18 }
+];
+
+// Open (or create) the database with the version 2
 let db;
-const request = indexedDB.open('exampleProductDB', 1);
+const request = indexedDB.open('exampleProductDB', 2);
 
 request.onerror = function(event) {
     console.error("Database error: ", event.target.error);
@@ -8,16 +18,59 @@ request.onerror = function(event) {
 
 request.onsuccess = function(event) {
     db = event.target.result;
-    loadProductTable(); // Load products after the database is opened
+    loadProducts(); // Load products after the database is opened
 };
 
 request.onupgradeneeded = function(event) {
     db = event.target.result;
-    db.createObjectStore('products', { keyPath: 'id' });
+    const store = event.oldVersion < 1
+        ? db.createObjectStore('products', { keyPath: 'id' })
+        : event.target.transaction.objectStore('products');
+
+    //Fill the shop with the starter catalog if it is empty
+    const countRequest = store.count();
+    countRequest.onsuccess = function() {
+        if (countRequest.result === 0) {
+            starterProducts.forEach(product => store.add(product));
+        }
+    };
 };
 
-//Load/Read products from IndexedDB and display them in the table
-function loadProductTable() {
+//Choose the illustration of a product based on its name
+function getProductArt(name) {
+    const lowerName = name.toLowerCase();
+    if (lowerName.includes('star')) return '#art-star';
+    if (lowerName.includes('tomato')) return '#art-tomato';
+    return '#art-kirby';
+}
+
+//Create the card of a product
+function createProductCard(product) {
+    const card = document.createElement('article');
+    card.className = 'productCard';
+    card.innerHTML = `
+        <div class="productArt">
+            <svg aria-hidden="true"><use href="${getProductArt(product.name)}"/></svg>
+        </div>
+        <div class="productInfo">
+            <span class="productId"></span>
+            <h3 class="productName"></h3>
+            <div class="productFooter">
+                <span class="productPrice"></span>
+                <button class="delete-btn" data-id="${product.id}">Delete</button>
+            </div>
+        </div>
+    `;
+    //Use textContent so the product name is never read as HTML
+    card.querySelector('.productId').textContent = 'No. ' + product.id;
+    card.querySelector('.productName').textContent = product.name;
+    card.querySelector('.productPrice').textContent = '$' + product.price.toFixed(2);
+    card.querySelector('.delete-btn').setAttribute('aria-label', 'Delete ' + product.name);
+    return card;
+}
+
+//Load/Read products from IndexedDB and display them in the catalog
+function loadProducts() {
     const transaction = db.transaction(['products'], 'readonly');
     const store = transaction.objectStore('products');
 
@@ -25,20 +78,15 @@ function loadProductTable() {
 
     request.onsuccess = function(event) {
         const products = event.target.result;
-        const tableBody = document.querySelector('#productsTable tbody');
-        tableBody.innerHTML = ''; // Clear the table before adding new products
+        const grid = document.getElementById('productsGrid');
+        grid.innerHTML = ''; // Clear the catalog before adding the products
 
         products.forEach(product => {
-            //Create a table row
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${product.id}</td>
-                <td>${product.name}</td>
-                <td>$${product.price}</td>
-                <td><button class="delete-btn" data-id="${product.id}">Delete</button></td>
-            `;
-            tableBody.appendChild(row);
+            grid.appendChild(createProductCard(product));
         });
+
+    //Show the empty message when there are no products
+        document.getElementById('emptyShop').hidden = products.length > 0;
 
     //Update the inventory summary
         updateSummary(products);
@@ -88,8 +136,8 @@ function addProduct() {
         document.getElementById('name').value = '';
         document.getElementById('price').value = '';
 
-    //Update the table with the new product
-        loadProductTable();
+    //Update the catalog with the new product
+        loadProducts();
     };
 }
 
@@ -102,31 +150,9 @@ function deleteProduct(event) {
     //Delete the product with the corresponding ID
     store.delete(productId);
 
-    //Reload the product table to reflect changes
-    loadProductTable();
+    //Reload the catalog to reflect changes
+    loadProducts();
 }
 
 //Event listener for the button click
 document.getElementById('addProduct').addEventListener('click', addProduct);
-
-//Dark mode: toggle the theme and remember the user's choice
-const themeToggle = document.getElementById('themeToggle');
-
-function applyTheme(theme) {
-    document.body.classList.toggle('dark', theme === 'dark');
-    themeToggle.textContent = theme === 'dark' ? '☀️ Light mode' : '🌙 Dark mode';
-}
-
-let savedTheme = 'light';
-try {
-    savedTheme = localStorage.getItem('theme') || 'light';
-} catch (e) { /* localStorage not available */ }
-applyTheme(savedTheme);
-
-themeToggle.addEventListener('click', function() {
-    const newTheme = document.body.classList.contains('dark') ? 'light' : 'dark';
-    applyTheme(newTheme);
-    try {
-        localStorage.setItem('theme', newTheme);
-    } catch (e) { /* localStorage not available */ }
-});

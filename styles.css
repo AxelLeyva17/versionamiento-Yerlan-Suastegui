@@ -1,163 +1,180 @@
-/* Paleta de colores (rebranding) */
+/* Paleta de colores (Dream Land) */
 :root {
-    --bg-start: #0F766E;
-    --bg-end: #0F172A;
-    --primary: #14B8A6;
-    --primary-dark: #0D9488;
-    --accent: #F59E0B;
-    --accent-dark: #D97706;
+    --sky: #BFE8FF;
+    --sky-soft: #FFE6F0;
+    --pink: #FBB1CC;
+    --pink-soft: #FFF0F6;
+    --pink-deep: #B0155E;
+    --primary: #C92A6B;
+    --primary-dark: #A01A52;
+    --star: #FFD84D;
+    --star-soft: #FFF7D6;
+    --mint-soft: #DDF6EA;
+    --blue-soft: #DFF3FF;
     --surface: #FFFFFF;
-    --surface-alt: #F0FDFA;
-    --text: #0F172A;
-    --text-muted: #475569;
-    --text-on-dark: #F8FAFC;
-    --border: #CBD5E1;
-    --danger: #EF4444;
-    --danger-dark: #B91C1C;
+    --text: #4A1F3D;
+    --text-muted: #7D5470;
+    --border: #F6CADC;
+    --danger: #D9304F;
 
     /* Tipografías */
-    --font-heading: 'Poppins', sans-serif;
-    --font-body: 'Inter', sans-serif;
+    --font-heading: 'Fredoka', sans-serif;
+    --font-body: 'Nunito', sans-serif;
 }
 
 body {
-    background: linear-gradient(var(--bg-start), var(--bg-end));
+    background: linear-gradient(var(--sky), var(--sky-soft) 70%);
+    background-attachment: fixed;
+    color: var(--text);
     font-family: var(--font-body);
     margin: 0;
     padding: 0;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
     align-items: center;
 }
 
+.spriteSheet {
+    display: none;
+}
+
+/* Encabezado */
+.appHeader {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    text-align: center;
+    padding: 28px 16px 8px;
+    box-sizing: border-box;
+}
+
+.heroKirby {
+    display: block;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 4px;
+    animation: bob 3s ease-in-out infinite;
+}
+
+@keyframes bob {
+    50% { transform: translateY(-8px); }
+}
+
+.cloud {
+    position: absolute;
+    width: 200px;
+    height: 90px;
+    opacity: 0.9;
+}
+
+.cloudLeft {
+    top: 40px;
+    left: 6%;
+}
+
+.cloudRight {
+    top: 96px;
+    right: 6%;
+}
+
 h1 {
+    position: relative;
     font-family: var(--font-heading);
     font-weight: 700;
-    letter-spacing: 0.5px;
-    color: var(--text-on-dark);
-    text-align: center;
-    margin-top: 20px;
-    font-size: 2.5em;
-    display: inline;
-    text-shadow: 0 2px 12px rgba(20, 184, 166, 0.6);
+    color: var(--pink-deep);
+    font-size: 3em;
+    line-height: 1.1;
+    margin: 0;
+}
+
+.subtitle {
+    position: relative;
+    color: var(--text);
+    margin: 8px 0 0;
+    font-size: 16px;
+    font-weight: 600;
 }
 
 .container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-top: 50px;
+    display: grid;
+    grid-template-columns: 290px minmax(0, 1fr);
+    gap: 28px;
+    align-items: start;
+    margin-top: 28px;
     width: 90%;
     max-width: 1200px;
 }
 
+/* Formulario */
 .formContainer {
-    text-align: center;
     background-color: var(--surface);
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-    width: 20%;
-    margin-right: 20px;
+    padding: 22px;
+    border-radius: 24px;
+    border: 3px solid var(--pink);
+    box-shadow: 0 8px 0 var(--pink);
+    box-sizing: border-box;
+}
+
+h2 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 22px;
+    color: var(--pink-deep);
+    margin: 0 0 16px;
 }
 
 label {
     display: block;
-    text-align: left;
-    font-weight: 600;
-    color: var(--primary-dark);
+    font-weight: 800;
     font-size: 14px;
     margin-bottom: 6px;
-    margin-right: 10px;
 }
 
 input {
-    padding: 8px;
-    margin-right: 10px;
+    padding: 11px 14px;
     margin-bottom: 15px;
-    border-radius: 5px;
-    border: 1px solid var(--border);
+    border-radius: 14px;
+    border: 2px solid var(--border);
+    background-color: var(--pink-soft);
+    color: var(--text);
     font-family: var(--font-body);
+    font-size: 15px;
     width: 100%;
     box-sizing: border-box;
 }
 
+input::placeholder {
+    color: var(--text-muted);
+}
+
+input:focus {
+    outline: 3px solid var(--star);
+    border-color: var(--primary);
+}
+
 button {
-    background-color: var(--accent);
-    color: var(--text);
+    background-color: var(--primary);
+    color: var(--surface);
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 12px 20px;
+    border-radius: 999px;
     cursor: pointer;
-    font-family: var(--font-body);
+    font-family: var(--font-heading);
     font-weight: 600;
-    font-size: 14px;
+    font-size: 16px;
     width: 100%;
+    transition: background-color 0.15s, transform 0.15s;
 }
 
 button:hover {
-    background-color: var(--accent-dark);
-    color: var(--text-on-dark);
-}
-
-table {
-    width: 60%;
-    border-collapse: collapse;
-    margin: 0 auto;
-}
-
-th, td {
-    border: 1px solid var(--border);
-    padding: 12px 15px;
-    text-align: left;
-}
-
-th {
-    font-family: var(--font-heading);
-    font-weight: 600;
     background-color: var(--primary-dark);
-    color: var(--text-on-dark);
+    transform: translateY(-2px);
 }
 
-td {
-    background-color: var(--surface-alt);
-    color: var(--text);
-}
-
-.delete-btn {
-    background-color: var(--danger);
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.delete-btn:hover {
-    background-color: var(--danger-dark);
-}
-
-
-#productsTable tbody tr {
-    background-color: var(--surface);
-    color: var(--text);
-}
-
-
-/* Encabezado */
-.appHeader {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.subtitle {
-    color: var(--text-on-dark);
-    opacity: 0.85;
-    margin: 8px 0 0;
-    font-size: 15px;
+button:focus-visible {
+    outline: 3px solid var(--star);
+    outline-offset: 2px;
 }
 
 /* Resumen del inventario */
@@ -169,72 +186,203 @@ td {
 
 .summaryItem {
     flex: 1;
-    background-color: var(--surface-alt);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 10px 6px;
+    min-width: 0;
+    background-color: var(--star-soft);
+    border-radius: 16px;
+    padding: 10px 12px;
     display: flex;
     flex-direction: column;
 }
 
 .summaryLabel {
     font-size: 12px;
+    font-weight: 700;
     color: var(--text-muted);
 }
 
 .summaryValue {
     font-family: var(--font-heading);
-    font-size: 18px;
+    font-size: 19px;
     font-weight: 700;
-    color: var(--primary-dark);
+    color: var(--pink-deep);
+    overflow-wrap: anywhere;
+}
+
+/* Catálogo de productos */
+.productsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.productCard {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--surface);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(176, 21, 94, 0.14);
+    transition: transform 0.15s;
+}
+
+.productCard:hover {
+    transform: translateY(-4px);
+}
+
+.productArt {
+    display: flex;
+    justify-content: center;
+    padding: 18px;
+    background-color: var(--pink-soft);
+}
+
+.productCard:nth-child(4n+2) .productArt {
+    background-color: var(--blue-soft);
+}
+
+.productCard:nth-child(4n+3) .productArt {
+    background-color: var(--star-soft);
+}
+
+.productCard:nth-child(4n+4) .productArt {
+    background-color: var(--mint-soft);
+}
+
+.productArt svg {
+    width: 104px;
+    height: 104px;
+}
+
+.productInfo {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 4px;
+    padding: 14px 16px 16px;
+}
+
+.productId {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+.productName {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.25;
+    margin: 0;
+    overflow-wrap: anywhere;
+}
+
+.productFooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: auto;
+    padding-top: 12px;
+}
+
+.productPrice {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--pink-deep);
+    overflow-wrap: anywhere;
+}
+
+.delete-btn {
+    width: auto;
+    flex-shrink: 0;
+    background-color: var(--surface);
+    color: var(--danger);
+    border: 2px solid var(--danger);
+    padding: 5px 12px;
+    font-size: 14px;
+}
+
+.delete-btn:hover {
+    background-color: var(--danger);
+    color: var(--surface);
+}
+
+/* Tienda vacía */
+.emptyShop {
+    text-align: center;
+    background-color: var(--surface);
+    border-radius: 24px;
+    padding: 40px 20px;
+    font-weight: 700;
+    font-size: 17px;
+}
+
+.emptyShop[hidden] {
+    display: none;
+}
+
+.emptyShop svg {
+    width: 120px;
+    height: 120px;
+}
+
+.emptyShop p {
+    margin: 12px 0 0;
 }
 
 /* Pie de página con el nombre del estudiante */
 .appFooter {
     margin-top: auto;
-    padding: 24px 0;
-    color: var(--text-on-dark);
-    opacity: 0.8;
+    padding: 32px 16px 24px;
     font-size: 14px;
     text-align: center;
 }
 
+/* Pantallas pequeñas */
+@media (max-width: 800px) {
+    .container {
+        grid-template-columns: minmax(0, 1fr);
+        width: auto;
+        align-self: stretch;
+        margin-left: 16px;
+        margin-right: 16px;
+    }
 
-/* Modo oscuro */
-body.dark {
-    --bg-start: #020617;
-    --bg-end: #0F172A;
-    --primary: #2DD4BF;
-    --primary-dark: #5EEAD4;
-    --surface: #1E293B;
-    --surface-alt: #0F172A;
-    --text: #E2E8F0;
-    --text-muted: #94A3B8;
-    --border: #334155;
+    h1 {
+        font-size: 2.2em;
+    }
+
+    .cloud {
+        width: 120px;
+        height: 54px;
+    }
+
+    .cloudLeft {
+        left: -20px;
+    }
+
+    .cloudRight {
+        right: -20px;
+    }
+
+    .productsGrid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 14px;
+    }
+
+    .productFooter {
+        flex-wrap: wrap;
+    }
 }
 
-body.dark th {
-    background-color: #115E59;
-}
+@media (prefers-reduced-motion: reduce) {
+    .heroKirby {
+        animation: none;
+    }
 
-body.dark input {
-    background-color: var(--surface-alt);
-    color: var(--text);
-}
-
-.themeToggle {
-    position: fixed;
-    top: 16px;
-    right: 16px;
-    width: auto;
-    padding: 8px 14px;
-    border-radius: 20px;
-    background-color: var(--surface);
-    color: var(--text);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-}
-
-.themeToggle:hover {
-    background-color: var(--primary);
-    color: var(--bg-end);
+    button,
+    .productCard {
+        transition: none;
+    }
 }

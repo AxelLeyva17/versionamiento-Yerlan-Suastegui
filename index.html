@@ -3,31 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yerlan's Shop | IndexedDB</title>
+    <title>Kirby's Dream Shop | IndexedDB</title>
 
-    <!-- Tipografías: Poppins (títulos) e Inter (texto) -->
+    <!-- Tipografías: Fredoka (títulos) y Nunito (texto) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <button id="themeToggle" class="themeToggle" aria-label="Toggle dark mode">🌙 Dark mode</button>
+    <!-- Ilustraciones reutilizables de la tienda -->
+    <svg class="spriteSheet" aria-hidden="true">
+        <symbol id="art-kirby" viewBox="0 0 120 120">
+            <ellipse cx="34" cy="103" rx="24" ry="13" fill="#D9304F" transform="rotate(-14 34 103)"/>
+            <ellipse cx="86" cy="103" rx="24" ry="13" fill="#D9304F" transform="rotate(14 86 103)"/>
+            <ellipse cx="15" cy="62" rx="13" ry="16" fill="#F48FB6"/>
+            <ellipse cx="105" cy="42" rx="13" ry="17" fill="#F48FB6" transform="rotate(28 105 42)"/>
+            <circle cx="60" cy="58" r="44" fill="#FBB1CC"/>
+            <ellipse cx="48" cy="46" rx="6" ry="14" fill="#1E1B4B"/>
+            <ellipse cx="48" cy="54" rx="3.5" ry="4.5" fill="#3B82F6"/>
+            <ellipse cx="48" cy="39" rx="4" ry="6.5" fill="#FFFFFF"/>
+            <ellipse cx="72" cy="46" rx="6" ry="14" fill="#1E1B4B"/>
+            <ellipse cx="72" cy="54" rx="3.5" ry="4.5" fill="#3B82F6"/>
+            <ellipse cx="72" cy="39" rx="4" ry="6.5" fill="#FFFFFF"/>
+            <ellipse cx="32" cy="63" rx="8" ry="4.5" fill="#F4729E"/>
+            <ellipse cx="88" cy="63" rx="8" ry="4.5" fill="#F4729E"/>
+            <path d="M54 66 Q60 77 66 66 Z" fill="#B3123F"/>
+        </symbol>
+        <symbol id="art-star" viewBox="0 0 120 120">
+            <polygon points="60,12 74,45 110,48 83,71 91,106 60,88 29,106 37,71 10,48 46,45" fill="#FFD84D" stroke="#F5A623" stroke-width="7" stroke-linejoin="round"/>
+            <ellipse cx="51" cy="58" rx="4" ry="8" fill="#7A4A00"/>
+            <ellipse cx="69" cy="58" rx="4" ry="8" fill="#7A4A00"/>
+        </symbol>
+        <symbol id="art-tomato" viewBox="0 0 120 120">
+            <circle cx="60" cy="66" r="44" fill="#E5383B"/>
+            <ellipse cx="42" cy="46" rx="11" ry="7" fill="#FF8A8C" transform="rotate(-30 42 46)"/>
+            <path d="M60 28 C48 14 34 18 30 22 C40 26 46 32 60 32 C74 32 80 26 90 22 C86 18 72 14 60 28 Z" fill="#3FA34D"/>
+            <path d="M38 88 V52 L60 74 L82 52 V88" fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+        </symbol>
+        <symbol id="art-cloud" viewBox="0 0 200 90">
+            <path d="M40 84 a30 30 0 0 1 -4 -60 a42 42 0 0 1 78 -10 a34 34 0 0 1 50 26 a23 23 0 0 1 -4 44 Z" fill="#FFFFFF"/>
+        </symbol>
+    </svg>
 
     <header class="appHeader">
-        <h1>Yerlan's Shop</h1>
-        <p class="subtitle">Product inventory stored locally with IndexedDB</p>
+        <svg class="cloud cloudLeft" aria-hidden="true"><use href="#art-cloud"/></svg>
+        <svg class="cloud cloudRight" aria-hidden="true"><use href="#art-cloud"/></svg>
+
+        <svg class="heroKirby" role="img" aria-label="Kirby waving"><use href="#art-kirby"/></svg>
+        <h1>Kirby's Dream Shop</h1>
+        <p class="subtitle">Treasures from Dream Land, stored locally with IndexedDB</p>
     </header>
 
     <div class="container">
 
         <div class="formContainer">
+            <h2>Add a treasure</h2>
+
             <label for="name">Product Name:</label>
-            <input type="text" id="name" placeholder="Enter product name">
-            
+            <input type="text" id="name" placeholder="e.g. Warp Star Lamp">
+
             <label for="price">Price:</label>
-            <input type="number" id="price" placeholder="Enter product price" min="1">
-            
+            <input type="number" id="price" placeholder="e.g. 19.99" min="1" step="0.01">
+
             <button id="addProduct">Add Product</button>
 
             <!-- Resumen del inventario -->
@@ -43,20 +81,15 @@
             </div>
         </div>
 
-      
-        <table id="productsTable">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-          
-            </tbody>
-        </table>
+        <main class="shop">
+            <div id="productsGrid" class="productsGrid"></div>
+
+            <!-- Se muestra cuando la tienda no tiene productos -->
+            <div id="emptyShop" class="emptyShop" hidden>
+                <svg aria-hidden="true"><use href="#art-kirby"/></svg>
+                <p>Kirby ate everything! Add a product to restock the shop.</p>
+            </div>
+        </main>
     </div>
 
     <footer class="appFooter">
