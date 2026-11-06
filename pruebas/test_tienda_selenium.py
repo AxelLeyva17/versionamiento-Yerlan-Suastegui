@@ -1,17 +1,3 @@
-"""Pruebas automatizadas de Kirby's Dream Shop con Selenium y Firefox.
-
-Se ejecutan contra la URL publica de Render. Los selectores salen del HTML real
-de la tienda (index.html y functions.js):
-  #name, #price, #addProduct, #productsGrid, .productCard, .productName,
-  .productPrice, .delete-btn, #totalProducts, #totalValue
-
-La tienda no tiene campo de cantidad; la prueba negativa se hace con el campo
-de precio (#price), que es el unico campo numerico.
-
-Uso:
-    python test_tienda_selenium.py [URL] [--headless]
-"""
-
 import sys
 import time
 from pathlib import Path
@@ -128,7 +114,6 @@ def main():
     if "--headless" in sys.argv:
         options.add_argument("-headless")
 
-    # Selenium Manager localiza Firefox y descarga GeckoDriver si hace falta
     driver = webdriver.Firefox(options=options)
     driver.set_window_size(1280, 900)
     wait = WebDriverWait(driver, 10)
@@ -137,7 +122,6 @@ def main():
     try:
         print(f"Firefox {driver.capabilities.get('browserVersion')} | URL: {url}")
         driver.get(url)
-        # Render (plan gratuito) puede tardar en despertar el servicio
         WebDriverWait(driver, 90).until(EC.presence_of_element_located((By.ID, "addProduct")))
         wait.until(lambda d: d.find_element(By.ID, "totalProducts").text != "0" or contar_productos(d) == 0)
         time.sleep(1)
