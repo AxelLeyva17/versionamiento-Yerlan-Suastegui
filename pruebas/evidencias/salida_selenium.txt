@@ -1,0 +1,8 @@
+﻿Firefox 159.0.1 | URL: https://versionamiento-yerlan-suastegui.onrender.com/
+Productos iniciales: 6
+
+[PASS] Prueba 1: agregar producto - productos 6 -> 7, precio mostrado $12.50
+[PASS] Prueba 2: eliminar producto - productos 7 -> 6, 'Kirby Selenium Test' ya no aparece
+[PASS] Prueba 3: precio negativo - el campo acepto escribir '-10', la app mostro el aviso "Please enter a valid name and price." y no agrego el producto
+
+Resultado: 3 de 3 pruebas aprobadas
